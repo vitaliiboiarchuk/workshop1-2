@@ -9,6 +9,7 @@ public class UserDAO {
 
     String createUser = "INSERT INTO users (username, password, email) VALUES (?,?,?);";
     String getUser = "SELECT * FROM users WHERE id = ?;";
+    String deleteUser = "DELETE FROM users WHERE id = ?;";
 
     public String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
@@ -46,5 +47,15 @@ public class UserDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void delete(int id) {
+        try (Connection connection = DBUtil.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteUser);
+            preparedStatement.setInt(1,id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
