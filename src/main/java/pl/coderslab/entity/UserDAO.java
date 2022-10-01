@@ -12,6 +12,7 @@ public class UserDAO {
     String getUser = "SELECT * FROM users WHERE id = ?;";
     String deleteUser = "DELETE FROM users WHERE id = ?;";
     String findAllUsers = "SELECT * FROM users;";
+    String editUser = "UPDATE users SET username = ?, password = ?, email = ? WHERE id = ?;";
 
     public String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
@@ -84,6 +85,19 @@ public class UserDAO {
         User[] array = Arrays.copyOf(users,users.length+1);
         array[users.length] = user;
         return array;
+    }
+
+    public void edit(User user) {
+        try (Connection connection = DBUtil.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(editUser);
+            preparedStatement.setString(1,user.getUsername());
+            preparedStatement.setString(2,hashPassword(user.getPassword()));
+            preparedStatement.setString(3,user.getEmail());
+            preparedStatement.setInt(4,user.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
