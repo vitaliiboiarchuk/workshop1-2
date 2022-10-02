@@ -14,7 +14,9 @@ public class Delete extends HttpServlet {
 
         UserDAO userDAO = new UserDAO();
 
-        userDAO.delete(16);
+        String id = request.getParameter("id");
+
+        userDAO.delete(Integer.parseInt(id));
     }
 
     @Override
