@@ -14,18 +14,35 @@ public class Edit extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         UserDAO userDAO = new UserDAO();
+        String id = request.getParameter("id");
 
-        User user = userDAO.get(19);
-        user.setUsername("newUser");
-        user.setEmail("newEmail");
-        user.setPassword("passss");
-        user.setId(19);
+        User user = userDAO.get(Integer.parseInt(id));
 
-        userDAO.edit(user);
+        request.setAttribute("user",user);
+
+        getServletContext().getRequestDispatcher("/edit.jsp").forward(request,response);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        UserDAO userDAO = new UserDAO();
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String email = request.getParameter("email");
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setEmail(email);
+        user.setId(id);
+
+        userDAO.edit(user);
+
+        response.sendRedirect(request.getContextPath() + "/list");
 
     }
 }
