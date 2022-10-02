@@ -32,7 +32,11 @@
                                     <td>${user.id}</td>
                                     <td>${user.username}</td>
                                     <td>${user.email}</td>
-                                    <td><a href="/edit?id=${user.id}">Edit</a></td>
+                                    <td>
+                                        <a href="/edit?id=${user.id}">Edit</a>
+                                        <a href="/delete?id=${user.id}">Usuń</a>
+                                    </td>
+
                                 </tr>
                                 </c:forEach>
                                 </tbody>

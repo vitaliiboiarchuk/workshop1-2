@@ -17,6 +17,8 @@ public class Delete extends HttpServlet {
         String id = request.getParameter("id");
 
         userDAO.delete(Integer.parseInt(id));
+
+        response.sendRedirect(request.getContextPath() + "/list");
     }
 
     @Override
