@@ -8,18 +8,20 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet("/get")
-public class Get extends HttpServlet {
+@WebServlet("/show")
+public class Show extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         UserDAO userDAO = new UserDAO();
 
-        User user = userDAO.get(1);
+        String id = request.getParameter("id");
+
+        User user = userDAO.get(Integer.parseInt(id));
 
         request.setAttribute("user",user);
 
-        getServletContext().getRequestDispatcher("/get.jsp").forward(request,response);
+        getServletContext().getRequestDispatcher("/show.jsp").forward(request,response);
     }
 
     @Override

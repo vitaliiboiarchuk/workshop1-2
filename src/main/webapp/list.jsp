@@ -35,6 +35,7 @@
                                     <td>
                                         <a href="/edit?id=${user.id}">Edit</a>
                                         <a href="/delete?id=${user.id}">Usuń</a>
+                                        <a href="/show?id=${user.id}">Pokaż</a>
                                     </td>
 
                                 </tr>
