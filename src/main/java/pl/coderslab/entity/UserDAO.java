@@ -42,6 +42,7 @@ public class UserDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             User user = new User();
             while (resultSet.next()) {
+                user.setId(resultSet.getInt("id"));
                 user.setUsername(resultSet.getString("username"));
                 user.setEmail(resultSet.getString("email"));
             }
